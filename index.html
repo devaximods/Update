@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -71,22 +72,6 @@
       font-size: 8vw;
       color: #ff80ab;
     }
-    .swipe-hint {
-      position: fixed;
-      bottom: 3vh;
-      left: 50%;
-      transform: translateX(-50%);
-      font-family: 'Dancing Script', cursive;
-      font-size: 5vw;
-      color: rgba(0,0,0,0.85);
-      background: rgba(255,255,255,0.35);
-      padding: 1vh 6vw;
-      border-radius: 50px;
-      backdrop-filter: blur(8px);
-      pointer-events: none;
-      z-index: 100;
-      text-shadow: 0 1px 3px black;
-    }
     .secret-btn {
       margin-top: 6vh;
       padding: 3vh 10vw;
@@ -104,12 +89,21 @@
       transform: scale(1.1);
       background: #d81b60;
     }
+    audio {
+      position: fixed;
+      bottom: 2vh;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80%;
+      max-width: 400px;
+      z-index: 99;
+      opacity: 0.7;
+    }
     @media (min-width: 768px) {
       h1 { font-size: 10rem; }
       .title { font-size: 7rem; }
       p { font-size: 2.8rem; }
       .sig { font-size: 5.5rem; }
-      .swipe-hint { font-size: 2.5rem; padding: 0.8vh 4vw; }
       .secret-btn { font-size: 3.5rem; padding: 2vh 6vw; }
     }
   </style>
@@ -122,11 +116,11 @@
       <div class="overlay"></div>
       <div class="content">
         <h1>Hind & Badou</h1>
-        <div class="sig">Swipe à droite ma chérie 💕</div>
+        <div class="sig">Notre histoire commence ici 💕</div>
       </div>
     </div>
 
-    <!-- Pages 1 à 9 : tes souvenirs -->
+    <!-- Page 1 -->
     <div class="page" style="background-image: url('https://i.ibb.co/TA_PHOTO_1.jpg');">
       <div class="overlay"></div>
       <div class="content">
@@ -136,31 +130,115 @@
       </div>
     </div>
 
-    <!-- ... Ajoute tes 8 autres pages avec tes vraies photos et textes crus ... -->
+    <!-- Page 2 -->
+    <div class="page" style="background-image: url('https://i.ibb.co/TA_PHOTO_2.jpg');">
+      <div class="overlay"></div>
+      <div class="content">
+        <div class="title">Ton Sourire</div>
+        <p>Quand tu souris, ma queue durcit et mon cœur explose, t'es ma drogue vivante.</p>
+        <div class="sig">Toujours toi 💙</div>
+      </div>
+    </div>
+
+    <!-- Page 3 -->
+    <div class="page" style="background-image: url('https://i.ibb.co/TA_PHOTO_3.jpg');">
+      <div class="overlay"></div>
+      <div class="content">
+        <div class="title">Premier Câlin</div>
+        <p>Tes seins contre moi, ta chatte chaude contre ma cuisse... putain ce moment.</p>
+        <div class="sig">Pour l'éternité</div>
+      </div>
+    </div>
+
+    <!-- Page 4 -->
+    <div class="page" style="background-image: url('https://i.ibb.co/TA_PHOTO_4.jpg');">
+      <div class="overlay"></div>
+      <div class="content">
+        <div class="title">Le Premier "Je t’aime"</div>
+        <p>T’as dit ça et j’ai joui dans mon froc de bonheur pur.</p>
+        <div class="sig">Infiniment</div>
+      </div>
+    </div>
+
+    <!-- Page 5 -->
+    <div class="page" style="background-image: url('https://i.ibb.co/TA_PHOTO_5.jpg');">
+      <div class="overlay"></div>
+      <div class="content">
+        <div class="title">Nos Nuits Blottis</div>
+        <p>Ta main sur ma bite pendant qu’on parle jusqu’à l’aube... mon paradis.</p>
+        <div class="sig">Mon refuge</div>
+      </div>
+    </div>
+
+    <!-- Page 6 -->
+    <div class="page" style="background-image: url('https://i.ibb.co/TA_PHOTO_6.jpg');">
+      <div class="overlay"></div>
+      <div class="content">
+        <div class="title">Tes Yeux Dans Les Miens</div>
+        <p>Quand tu me fixes, je sens ma queue pulser et mon âme se liquéfier.</p>
+        <div class="sig">Pour toujours</div>
+      </div>
+    </div>
+
+    <!-- Page 7 -->
+    <div class="page" style="background-image: url('https://i.ibb.co/TA_PHOTO_7.jpg');">
+      <div class="overlay"></div>
+      <div class="content">
+        <div class="title">Tes Baisers</div>
+        <p>Ta langue dans ma bouche, ta salive qui coule... je bande dur.</p>
+        <div class="sig">Encore et encore</div>
+      </div>
+    </div>
+
+    <!-- Page 8 -->
+    <div class="page" style="background-image: url('https://i.ibb.co/TA_PHOTO_8.jpg');">
+      <div class="overlay"></div>
+      <div class="content">
+        <div class="title">Nos Promenades</div>
+        <p>Main dans la main, ta cuisse qui frôle ma bite à chaque pas.</p>
+        <div class="sig">Mon bonheur sale</div>
+      </div>
+    </div>
+
+    <!-- Page 9 -->
+    <div class="page" style="background-image: url('https://i.ibb.co/TA_PHOTO_9.jpg');">
+      <div class="overlay"></div>
+      <div class="content">
+        <div class="title">Tes Petits Gestes</div>
+        <p>Quand tu me touches la queue doucement, je fonds comme une salope.</p>
+        <div class="sig">Tu es tout</div>
+      </div>
+    </div>
 
     <!-- Page 10 : Fin avec bouton secret -->
     <div class="page" style="background-image: url('https://i.ibb.co/TA_PHOTO_10.jpg');">
       <div class="overlay"></div>
       <div class="content">
         <h1>À Nous Deux</h1>
-        <p>Hind, t’es ma chatte, mon cœur, ma vie entière. Je t’aime jusqu’à la moelle.</p>
+        <p>Hind, t’es ma chatte préférée, mon amour, ma vie. Je t’aime jusqu’à la dernière goutte de sperme.</p>
         <div class="sig">Ton Badou 💍🩷</div>
         <button class="secret-btn" onclick="window.open('TON_LIEN_ICI', '_blank')">Clique ici ma chérie 💦</button>
       </div>
     </div>
   </div>
 
-  <!-- Texte discret en bas tout le temps -->
-  <div class="swipe-hint">Swipe à droite ma chérie →</div>
-
-  <!-- Son optionnel (décommenter si tu veux, change src) -->
-  <!-- <audio controls loop style="position:fixed; bottom:10vh; left:50%; transform:translateX(-50%); width:80%; max-width:400px; z-index:99; opacity:0.7;">
+  <!-- SON ROMANTIQUE / HOT (change src par ton fichier .mp3) -->
+  <audio id="loveSound" loop>
     <source src="TON_LIEN_MP3_ICI.mp3" type="audio/mpeg">
-  </audio> -->
+    Ton navigateur ne supporte pas l'audio.
+  </audio>
 
   <script>
     const book = document.getElementById('book');
+    const audio = document.getElementById('loveSound');
+    audio.volume = 0.4; // doux au début
+
     let touchStartX = 0;
+
+    // Auto-play après première interaction (obligatoire iOS)
+    document.addEventListener('touchstart', () => {
+      audio.play().catch(() => {});
+    }, { once: true });
 
     book.addEventListener('touchstart', e => {
       touchStartX = e.touches[0].clientX;
@@ -170,19 +248,18 @@
       const touchEndX = e.changedTouches[0].clientX;
       const diff = touchStartX - touchEndX;
 
-      if (diff > 60) { // Swipe gauche → next
+      if (diff > 60) { // next
         const maxScroll = book.scrollWidth - book.clientWidth;
         if (book.scrollLeft < maxScroll - 20) {
           book.scrollTo({ left: book.scrollLeft + window.innerWidth, behavior: 'smooth' });
         }
-      } else if (diff < -60) { // Swipe droite → previous
+      } else if (diff < -60) { // previous
         if (book.scrollLeft > 20) {
           book.scrollTo({ left: book.scrollLeft - window.innerWidth, behavior: 'smooth' });
         }
       }
     });
 
-    // Clic = next (ignore bouton)
     book.addEventListener('click', e => {
       if (e.target.classList.contains('secret-btn')) return;
       const maxScroll = book.scrollWidth - book.clientWidth;
