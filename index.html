@@ -1,221 +1,207 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Hind & Badou • Notre Amour 💙🩷</title>
+  <title>Hind & Badou • Notre Histoire Infinie 💙🩷</title>
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
   <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
     body {
-      margin: 0;
       height: 100vh;
+      overflow: hidden;
       background: linear-gradient(135deg, #fff0f5, #e3f2fd);
       font-family: 'Poppins', sans-serif;
-      overflow: hidden;
+      color: #333;
+    }
+    .container {
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+    }
+    .page {
+      flex: 0 0 100vw;
+      height: 100vh;
+      scroll-snap-align: start;
+      background-size: cover;
+      background-position: center;
+      position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
-      perspective: 1600px;
+      color: white;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.7);
     }
-    .scene {
-      width: 500px;
-      height: 380px;
-      position: relative;
-      transform-style: preserve-3d;
-      transition: transform 2.2s ease-in-out;
-    }
-    .book {
-      width: 100%;
-      height: 100%;
+    .overlay {
       position: absolute;
-      transform-style: preserve-3d;
-      transition: transform 2.2s ease-in-out;
-      cursor: pointer;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      z-index: 1;
+    }
+    .content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 3rem;
+      max-width: 90%;
     }
     .cover {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      border-radius: 16px;
-      box-shadow: 0 15px 50px rgba(0,0,0,0.35);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      background: linear-gradient(135deg, #ff80ab, #e91e63);
       font-family: 'Dancing Script', cursive;
-      font-size: 5.2rem;
-      color: white;
-      text-shadow: 0 3px 12px rgba(0,0,0,0.5);
-      backface-visibility: hidden;
-    }
-    .cover-front {
-      background: linear-gradient(135deg, #ff9db5, #f06292);
-      z-index: 20;
+      font-size: 10vw;
+      line-height: 1;
     }
     .cover-back {
       background: linear-gradient(135deg, #b3e5fc, #81d4fa);
       color: #c2185b;
-      transform: rotateY(180deg);
     }
-    .pages {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      transform-style: preserve-3d;
-    }
-    .page {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: #fffaf5;
-      border-radius: 16px;
-      box-shadow: inset 0 0 25px rgba(0,0,0,0.08);
-      backface-visibility: hidden;
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 35px;
-      box-sizing: border-box;
-      text-align: center;
-    }
-    .page.active { display: flex; }
-    .page img {
-      max-width: 70%;
-      max-height: 50%;
-      border-radius: 20px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-      margin-bottom: 20px;
-    }
-    .page-title {
+    h1 {
       font-family: 'Dancing Script', cursive;
-      font-size: 3.8rem;
-      color: #d81b60;
-      margin-bottom: 15px;
+      font-size: 9vw;
+      margin-bottom: 2vh;
+      color: #ff80ab;
     }
-    .page-text {
-      font-size: 1.45rem;
-      line-height: 1.65;
-      color: #444;
-      max-width: 85%;
-    }
-    .page-sig {
-      margin-top: 25px;
-      font-family: 'Dancing Script', cursive;
-      font-size: 2.4rem;
+    .title {
+      font-size: 6vw;
+      margin-bottom: 3vh;
       color: #e91e63;
     }
-    .open .book { transform: rotateY(-180deg); }
-    .open .scene { transform: rotateY(8deg) translateZ(40px); }
+    p {
+      font-size: 3.5vw;
+      line-height: 1.5;
+      max-width: 80%;
+      margin: 0 auto 4vh;
+    }
+    .sig {
+      font-family: 'Dancing Script', cursive;
+      font-size: 5.5vw;
+      color: #ff4081;
+    }
     .hint {
-      position: absolute;
-      bottom: 30px;
+      position: fixed;
+      bottom: 5vh;
       left: 50%;
       transform: translateX(-50%);
-      font-size: 1.2rem;
-      color: #666;
-      opacity: 0.85;
+      background: rgba(255,255,255,0.25);
+      padding: 1vh 3vw;
+      border-radius: 50px;
+      font-size: 2.5vw;
+      color: white;
+      z-index: 10;
+      backdrop-filter: blur(8px);
       pointer-events: none;
+    }
+    @media (min-width: 768px) {
+      h1 { font-size: 8rem; }
+      .title { font-size: 5rem; }
+      p { font-size: 2.2rem; }
+      .sig { font-size: 4rem; }
+      .hint { font-size: 1.4rem; }
     }
   </style>
 </head>
 <body>
 
-  <div class="scene" id="scene">
-    <div class="book" id="book">
-      <div class="cover cover-front">Hind & Badou 💕</div>
-      <div class="cover cover-back">À Nous Deux</div>
-      
-      <div class="pages" id="pages">
-        <!-- Page 1 : Accueil doux -->
-        <div class="page active" data-page="1">
-          <img src="https://i.ibb.co/TA_PHOTO_1.jpg" alt="Nous">
-          <div class="page-title">Notre Premier Regard</div>
-          <div class="page-text">Ce jour-là, ton sourire m’a figé sur place. J’ai su que ma vie ne serait plus jamais la même.</div>
-          <div class="page-sig">Ton Badou 🩷</div>
-        </div>
+  <div class="container">
+    <!-- Page 0 : Couverture avant -->
+    <div class="page cover" style="background-image: url('https://i.ibb.co/TA_PHOTO_COVER.jpg');">
+      <div class="overlay"></div>
+      <div class="content">
+        <h1>Hind & Badou</h1>
+        <p class="sig">Ouvre-moi mon cœur 💕</p>
+      </div>
+    </div>
 
-        <!-- Page 2 -->
-        <div class="page" data-page="2">
-          <img src="https://i.ibb.co/TA_PHOTO_2.jpg" alt="Souvenir">
-          <div class="page-title">Tes Rires Infinis</div>
-          <div class="page-text">Quand tu ris, le monde s’arrête. C’est mon son préféré, celui qui me fait tout oublier.</div>
-          <div class="page-sig">Toujours toi 💙</div>
-        </div>
+    <!-- Page 1 -->
+    <div class="page" style="background-image: url('https://i.ibb.co/TA_PHOTO_1.jpg');">
+      <div class="overlay"></div>
+      <div class="content">
+        <div class="title">Notre Premier Regard</div>
+        <p>Ce jour-là, tes yeux ont capturé les miens et le monde a disparu. Juste toi et moi.</p>
+        <div class="sig">Ton Badou 🩷</div>
+      </div>
+    </div>
 
-        <!-- Page 3 -->
-        <div class="page" data-page="3">
-          <img src="https://i.ibb.co/TA_PHOTO_3.jpg" alt="Souvenir">
-          <div class="page-title">Notre Premier Câlin</div>
-          <div class="page-text">Sous la pluie, tu t’es blottie contre moi. J’ai senti ton cœur battre au même rythme que le mien.</div>
-          <div class="page-sig">Pour l’éternité</div>
-        </div>
+    <!-- Page 2 -->
+    <div class="page" style="background-image: url('https://i.ibb.co/TA_PHOTO_2.jpg');">
+      <div class="overlay"></div>
+      <div class="content">
+        <div class="title">Ton Sourire Qui Tue</div>
+        <p>Quand tu souris, mon cœur rate un battement. C’est la plus belle arme que tu aies.</p>
+        <div class="sig">Toujours toi 💙</div>
+      </div>
+    </div>
 
-        <!-- Page 4 -->
-        <div class="page" data-page="4">
-          <img src="https://i.ibb.co/TA_PHOTO_4.jpg" alt="Souvenir">
-          <div class="page-title">Le Premier "Je t’aime"</div>
-          <div class="page-text">Tes mots ont fait trembler mon âme. Je te les redis tous les jours : je t’aime Hind.</div>
-          <div class="page-sig">Infiniment</div>
-        </div>
+    <!-- Page 3 -->
+    <div class="page" style="background-image: url('https://i.ibb.co/TA_PHOTO_3.jpg');">
+      <div class="overlay"></div>
+      <div class="content">
+        <div class="title">Premier Câlin Sous la Pluie</div>
+        <p>Tes bras autour de moi, la pluie qui tombe… rien d’autre n’existait.</p>
+        <div class="sig">Pour toujours</div>
+      </div>
+    </div>
 
-        <!-- Page 5 -->
-        <div class="page" data-page="5">
-          <img src="https://i.ibb.co/TA_PHOTO_5.jpg" alt="Souvenir">
-          <div class="page-title">Nos Soirées Blottis</div>
-          <div class="page-text">Sous la couette, à parler jusqu’au matin… ces moments sont mon refuge, mon paradis.</div>
-          <div class="page-sig">Mon endroit préféré</div>
-        </div>
+    <!-- Page 4 -->
+    <div class="page" style="background-image: url('https://i.ibb.co/TA_PHOTO_4.jpg');">
+      <div class="overlay"></div>
+      <div class="content">
+        <div class="title">Le Premier "Je t’aime"</div>
+        <p>Tes lèvres ont murmuré ces mots et mon âme a explosé de lumière.</p>
+        <div class="sig">Je t’aime infiniment</div>
+      </div>
+    </div>
 
-        <!-- Page 6 -->
-        <div class="page" data-page="6">
-          <img src="https://i.ibb.co/TA_PHOTO_6.jpg" alt="Souvenir">
-          <div class="page-title">Tes Yeux Dans Les Miens</div>
-          <div class="page-text">Quand tu me regardes comme ça, je perds pied. Tu es ma faiblesse et ma force.</div>
-          <div class="page-sig">Pour toujours</div>
-        </div>
+    <!-- Page 5 -->
+    <div class="page" style="background-image: url('https://i.ibb.co/TA_PHOTO_5.jpg');">
+      <div class="overlay"></div>
+      <div class="content">
+        <div class="title">Nos Nuits à Parler</div>
+        <p>Blottis sous la couette jusqu’à l’aube, tes mots sont mon refuge.</p>
+        <div class="sig">Mon paradis</div>
+      </div>
+    </div>
 
-        <!-- Page 7 : Fin douce -->
-        <div class="page" data-page="7">
-          <img src="https://i.ibb.co/TA_PHOTO_7.jpg" alt="Nous">
-          <div class="page-title">À Nous Deux</div>
-          <div class="page-text">Merci d’être ma moitié, mon rire, mon calme. Je t’aime plus que les mots ne peuvent le dire.</div>
-          <div class="page-sig">Ton Badou 💍🩷</div>
-        </div>
+    <!-- Page 6 -->
+    <div class="page" style="background-image: url('https://i.ibb.co/TA_PHOTO_6.jpg');">
+      <div class="overlay"></div>
+      <div class="content">
+        <div class="title">Tes Yeux Dans Les Miens</div>
+        <p>Quand tu me regardes, je me perds et je me retrouve en même temps.</p>
+        <div class="sig">Ma faiblesse, ma force</div>
+      </div>
+    </div>
+
+    <!-- Page 7 : Fin -->
+    <div class="page cover-back" style="background-image: url('https://i.ibb.co/TA_PHOTO_7.jpg');">
+      <div class="overlay"></div>
+      <div class="content">
+        <h1>À Nous Deux</h1>
+        <p>Merci d’être mon tout, mon rire, mon calme. Je t’aime plus que tout au monde.</p>
+        <div class="sig">Ton Badou 💍🩷</div>
       </div>
     </div>
   </div>
 
-  <div class="hint" id="hint">Clique pour ouvrir • Flèches ou clic pour tourner les pages</div>
+  <div class="hint">Swipe à droite ou flèche → pour tourner les pages</div>
 
   <script>
-    const book = document.getElementById('book');
-    const scene = document.getElementById('scene');
-    const pages = document.querySelectorAll('.page');
-    let currentPage = 1;
-    const totalPages = pages.length;
-
-    book.addEventListener('click', () => {
-      if (!scene.classList.contains('open')) {
-        scene.classList.add('open');
-        document.getElementById('hint').textContent = "Clic ou flèches → pour tourner";
-      } else {
-        pages[currentPage - 1].classList.remove('active');
-        currentPage = (currentPage % totalPages) + 1;
-        pages[currentPage - 1].classList.add('active');
-      }
+    // Petit bonus : scroll fluide sur mobile/PC
+    const container = document.querySelector('.container');
+    let touchStartX = 0;
+    container.addEventListener('touchstart', e => {
+      touchStartX = e.touches[0].clientX;
     });
-
-    document.addEventListener('keydown', (e) => {
-      if (scene.classList.contains('open')) {
-        if (e.key === 'ArrowRight') {
-          pages[currentPage - 1].classList.remove('active');
-          currentPage = (currentPage % totalPages) + 1;
-          pages[currentPage - 1].classList.add('active');
-        } else if (e.key === 'ArrowLeft') {
-          pages[currentPage - 1].classList.remove('active');
-          currentPage = currentPage === 1 ? totalPages : currentPage - 1;
-          pages[currentPage - 1].classList.add('active');
-        }
+    container.addEventListener('touchend', e => {
+      const touchEndX = e.changedTouches[0].clientX;
+      if (touchStartX - touchEndX > 50) {
+        container.scrollBy({ left: window.innerWidth, behavior: 'smooth' });
+      } else if (touchEndX - touchStartX > 50) {
+        container.scrollBy({ left: -window.innerWidth, behavior: 'smooth' });
       }
     });
   </script>
