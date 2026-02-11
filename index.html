@@ -1,0 +1,254 @@
+```html
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hind & Badou • Notre Histoire d'Amour 💙🩷</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #fff0f5 0%, #e3f2fd 100%);
+      color: #333;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .container {
+      text-align: center;
+      max-width: 95%;
+      padding: 2rem;
+      position: relative;
+    }
+    .photo {
+      width: 300px;
+      height: 400px;
+      object-fit: cover;
+      border-radius: 24px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.18);
+      margin: 2rem auto;
+      display: block;
+      opacity: 0;
+      transform: scale(0.92);
+      transition: all 1.2s ease-out;
+    }
+    .photo.visible { opacity: 1; transform: scale(1); }
+    h1 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 5.8rem;
+      color: #d81b60;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      transition: opacity 0.8s ease;
+    }
+    .text {
+      font-size: 1.65rem;
+      line-height: 1.7;
+      max-width: 760px;
+      margin: 0 auto 2rem;
+      color: #424242;
+      opacity: 0;
+      transition: opacity 0.8s ease;
+    }
+    .signature {
+      font-family: 'Dancing Script', cursive;
+      font-size: 2.6rem;
+      color: #e91e63;
+      margin-top: 1.5rem;
+      opacity: 0;
+      transition: opacity 0.8s ease;
+    }
+    .next-btn {
+      margin-top: 2.5rem;
+      padding: 1rem 3rem;
+      font-size: 1.4rem;
+      background: #ff80ab;
+      color: white;
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(233,30,99,0.25);
+      transition: all 0.3s ease;
+    }
+    .next-btn:hover {
+      transform: translateY(-3px);
+      background: #f06292;
+      box-shadow: 0 12px 35px rgba(233,30,99,0.35);
+    }
+    .page { display: none; }
+    .page.active { display: block; }
+    .final-message h1 { font-size: 5rem; margin-bottom: 2rem; }
+    .countdown {
+      margin-top: 2.5rem;
+      font-size: 3rem;
+      color: #c2185b;
+      font-weight: 600;
+      letter-spacing: 2px;
+    }
+    .countdown span {
+      margin: 0 1.2rem;
+      padding: 1.2rem 2rem;
+      background: rgba(255,255,255,0.65);
+      border-radius: 20px;
+      backdrop-filter: blur(6px);
+    }
+    .final-message p {
+      font-size: 1.7rem;
+      line-height: 1.8;
+      margin-top: 1.5rem;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <div id="pages">
+      <div class="page active" data-page="1">
+        <img src="https://i.ibb.co/TA_PHOTO_1.jpg" alt="Nous" class="photo">
+        <h1 id="title1">Hind & Badou</h1>
+        <p class="text" id="text1"></p>
+        <p class="signature" id="sig1"></p>
+      </div>
+
+      <div class="page" data-page="2">
+        <img src="https://i.ibb.co/TA_PHOTO_2.jpg" alt="Souvenir" class="photo">
+        <h1 id="title2">Le jour où tout a commencé</h1>
+        <p class="text" id="text2"></p>
+        <p class="signature" id="sig2">Ton Badou 💙</p>
+      </div>
+
+      <div class="page" data-page="3">
+        <img src="https://i.ibb.co/TA_PHOTO_3.jpg" alt="Souvenir" class="photo">
+        <h1 id="title3">Notre premier "je t'aime"</h1>
+        <p class="text" id="text3"></p>
+        <p class="signature" id="sig3">Pour toujours 🩷</p>
+      </div>
+
+      <!-- DUPLIQUE CES BLOCS POUR 4,5,6,7 ET CHANGE LES URLS + IDs -->
+    </div>
+
+    <div class="page final-message" id="final" style="display:none;">
+      <h1>Je t’aime mon cœur</h1>
+      <p class="text">
+        Hind, tu es la plus belle chose qui me soit arrivée.<br>
+        Chaque jour à tes côtés est un rêve dont je ne veux jamais me réveiller.<br>
+        Merci d’être toi, merci de m’aimer comme tu le fais.<br>
+        Je veux passer toute ma vie à te rendre heureuse.
+      </p>
+      <p class="signature">Ton Badou, pour l’éternité 💍</p>
+      <div class="countdown" id="countdown">
+        <span id="days">0</span>j
+        <span id="hours">00</span>h
+        <span id="minutes">00</span>m
+        <span id="seconds">00</span>s
+      </div>
+      <p style="margin-top:1.5rem; font-size:1.5rem; color:#777;">
+        jusqu’à <strong>Notre Mariage</strong> 💕
+      </p>
+    </div>
+
+    <button class="next-btn" id="next">Suivant →</button>
+
+  </div>
+
+  <script>
+    const nextBtn = document.getElementById('next');
+    let currentPage = 1;
+    const totalPages = 7;
+
+    const contents = [
+      { title: "Hind & Badou", text: "Depuis le premier jour, mon cœur sait que c’est toi. Tu es mon évidence, ma maison, mon tout.", sig: "Avec tout mon amour 💙" },
+      { title: "Le jour où tout a commencé", text: "Ton sourire a illuminé cette journée banale. À cet instant, j’ai compris que ma vie venait de changer pour toujours.", sig: "Ton Badou" },
+      { title: "Notre premier \"je t'aime\"", text: "Quand tu me l’as dit, j’ai senti mon cœur exploser de bonheur. Je te le redis chaque jour : je t’aime infiniment.", sig: "Pour toujours 🩷" },
+      // Ajoute les 4 autres ici (index 3 à 6 pour pages 4 à 7)
+      { title: "", text: "", sig: "" },
+      { title: "", text: "", sig: "" },
+      { title: "", text: "", sig: "" },
+      { title: "", text: "", sig: "" }
+    ];
+
+    function typeWriter(element, text, speed = 60, callback) {
+      element.innerHTML = '';
+      let i = 0;
+      const interval = setInterval(() => {
+        if (i < text.length) {
+          element.innerHTML += text.charAt(i);
+          i++;
+        } else {
+          clearInterval(interval);
+          if (callback) callback();
+        }
+      }, speed);
+    }
+
+    function loadPage(pageNum) {
+      const page = document.querySelector(`[data-page="${pageNum}"]`);
+      if (!page) return;
+
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      page.classList.add('active');
+
+      const title = page.querySelector('h1');
+      const text = page.querySelector('.text');
+      const sig = page.querySelector('.signature');
+      const photo = page.querySelector('.photo');
+
+      title.style.opacity = 0;
+      text.style.opacity = 0;
+      sig.style.opacity = 0;
+      photo.classList.remove('visible');
+
+      setTimeout(() => {
+        photo.classList.add('visible');
+        typeWriter(title, contents[pageNum-1].title, 80, () => {
+          typeWriter(text, contents[pageNum-1].text, 50, () => {
+            typeWriter(sig, contents[pageNum-1].sig, 70);
+          });
+        });
+      }, 300);
+    }
+
+    nextBtn.addEventListener('click', () => {
+      if (currentPage < totalPages) {
+        currentPage++;
+        loadPage(currentPage);
+      } else if (currentPage === totalPages) {
+        document.getElementById('pages').style.display = 'none';
+        document.getElementById('final').style.display = 'block';
+        nextBtn.style.display = 'none';
+        startCountdown();
+      }
+    });
+
+    function startCountdown() {
+      const weddingDate = new Date('2028-10-15T00:00:00').getTime(); // CHANGE LA DATE ICI
+      function update() {
+        const now = new Date().getTime();
+        const distance = weddingDate - now;
+        if (distance < 0) {
+          document.getElementById('countdown').innerHTML = "<span>Pour toujours ! 💍</span>";
+          return;
+        }
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        document.getElementById('days').textContent = days;
+        document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+        document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+        document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+      }
+      update();
+      setInterval(update, 1000);
+    }
+
+    loadPage(1);
+  </script>
+</body>
+</html>
