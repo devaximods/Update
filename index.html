@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -70,11 +71,45 @@
       font-size: 8vw;
       color: #ff80ab;
     }
+    .hint {
+      position: fixed;
+      bottom: 6vh;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 3.5vw;
+      color: white;
+      background: rgba(255,64,129,0.6);
+      padding: 1.5vh 6vw;
+      border-radius: 60px;
+      z-index: 100;
+      backdrop-filter: blur(10px);
+      pointer-events: none;
+      text-shadow: 0 1px 4px black;
+    }
+    .secret-btn {
+      margin-top: 6vh;
+      padding: 3vh 10vw;
+      font-size: 5vw;
+      background: #ff4081;
+      color: white;
+      border: none;
+      border-radius: 60px;
+      font-family: 'Dancing Script', cursive;
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+      transition: all 0.3s;
+    }
+    .secret-btn:hover {
+      transform: scale(1.1);
+      background: #d81b60;
+    }
     @media (min-width: 768px) {
       h1 { font-size: 10rem; }
       .title { font-size: 7rem; }
       p { font-size: 2.8rem; }
       .sig { font-size: 5.5rem; }
+      .hint { font-size: 2rem; padding: 1vh 4vw; }
+      .secret-btn { font-size: 3rem; padding: 2vh 6vw; }
     }
   </style>
 </head>
@@ -86,7 +121,7 @@
       <div class="overlay"></div>
       <div class="content">
         <h1>Hind & Badou</h1>
-        <div class="sig">Touchez pour ouvrir notre putain d'histoire 💕</div>
+        <div class="sig">Notre putain d'histoire commence ici 💕</div>
       </div>
     </div>
 
@@ -180,13 +215,14 @@
       </div>
     </div>
 
-    <!-- Page 10 : Fin -->
+    <!-- Page 10 : Fin avec bouton secret -->
     <div class="page" style="background-image: url('https://i.ibb.co/TA_PHOTO_10.jpg');">
       <div class="overlay"></div>
       <div class="content">
         <h1>À Nous Deux</h1>
-        <p>Hind, t’es ma chatte préférée, mon amour, ma vie. Je t’aime jusqu’à la dernière goutte.</p>
+        <p>Hind, t’es ma chatte préférée, mon amour, ma vie. Je t’aime jusqu’à la dernière goutte de sperme.</p>
         <div class="sig">Ton Badou 💍🩷</div>
+        <button class="secret-btn" onclick="window.open('TON_LIEN_ICI', '_blank')">Clique ici pour notre secret 💦</button>
       </div>
     </div>
   </div>
@@ -205,20 +241,21 @@
 
       if (diff > 60) { // Swipe gauche → droite = next
         const maxScroll = book.scrollWidth - book.clientWidth;
-        if (book.scrollLeft < maxScroll - 10) {
+        if (book.scrollLeft < maxScroll - 20) {
           book.scrollBy({ left: window.innerWidth, behavior: 'smooth' });
         }
       } else if (diff < -60) { // Swipe droite → gauche = previous
-        if (book.scrollLeft > 10) {
+        if (book.scrollLeft > 20) {
           book.scrollBy({ left: -window.innerWidth, behavior: 'smooth' });
         }
       }
     });
 
-    // Clic simple = next (mobile-friendly)
-    book.addEventListener('click', () => {
+    // Clic = next (mais pas sur le bouton secret)
+    book.addEventListener('click', e => {
+      if (e.target.classList.contains('secret-btn')) return;
       const maxScroll = book.scrollWidth - book.clientWidth;
-      if (book.scrollLeft < maxScroll - 10) {
+      if (book.scrollLeft < maxScroll - 20) {
         book.scrollBy({ left: window.innerWidth, behavior: 'smooth' });
       }
     });
