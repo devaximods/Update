@@ -3,55 +3,66 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Hind & Badou • Notre Amour Éternel 💙🩷</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>Hind & Badou • Notre Amour Infini 💙🩷</title>
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
   <style>
-    * { margin:0; padding:0; box-sizing:border-box; }
+    * { margin:0; padding:0; box-sizing:border-box; touch-action: manipulation; }
     body {
       height: 100vh;
       overflow: hidden;
-      background: linear-gradient(135deg, #fff0f5, #e3f2fd);
+      background: linear-gradient(180deg, #ff80ab 0%, #ff4081 40%, #f06292 100%);
       font-family: 'Poppins', sans-serif;
       perspective: 2200px;
     }
-    .scene {
+    .book-wrapper {
       width: 100vw;
       height: 100vh;
       position: relative;
       transform-style: preserve-3d;
-      transition: transform 1.8s cubic-bezier(0.25, 0.1, 0.25, 1);
     }
     .book {
       width: 100%;
       height: 100%;
       position: absolute;
       transform-style: preserve-3d;
-      transition: transform 1.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+      transform-origin: center center;
+      transition: transform 1.6s cubic-bezier(0.25, 0.1, 0.25, 1);
       cursor: pointer;
     }
-    .cover, .page {
+    .page {
       position: absolute;
       width: 100%;
       height: 100%;
       background-size: cover;
       background-position: center;
-      box-shadow: 0 0 80px rgba(0,0,0,0.5);
       backface-visibility: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
-      flex-direction: column;
+      color: white;
+      text-shadow: 0 3px 15px rgba(0,0,0,0.75);
+      box-shadow: 0 0 80px rgba(0,0,0,0.5);
+      pointer-events: auto;
+    }
+    .overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 1;
+    }
+    .content {
+      position: relative;
+      z-index: 2;
       text-align: center;
-      padding: 6vw;
+      padding: 5vw;
+      max-width: 92%;
     }
     .cover-front {
       background: linear-gradient(135deg, #ff80ab, #e91e63);
-      z-index: 20;
+      z-index: 30;
       font-family: 'Dancing Script', cursive;
-      font-size: 12vw;
-      color: white;
-      text-shadow: 0 5px 20px rgba(0,0,0,0.6);
+      font-size: 14vw;
     }
     .cover-back {
       background: linear-gradient(135deg, #b3e5fc, #81d4fa);
@@ -59,97 +70,137 @@
       transform: rotateY(180deg);
       z-index: 1;
     }
-    .page {
-      background: rgba(255,250,245,0.92);
-      color: #333;
-      transform: rotateY(0deg);
-      z-index: 10;
-    }
-    .page img {
-      max-width: 70vw;
-      max-height: 50vh;
-      border-radius: 20px;
-      box-shadow: 0 15px 40px rgba(0,0,0,0.25);
-      margin-bottom: 4vh;
-    }
     .page-title {
       font-family: 'Dancing Script', cursive;
-      font-size: 8vw;
-      color: #d81b60;
-      margin-bottom: 3vh;
+      font-size: 9vw;
+      margin-bottom: 4vh;
+      color: #ff80ab;
     }
     .page-text {
-      font-size: 3.2vw;
+      font-size: 3.8vw;
       line-height: 1.55;
-      max-width: 80%;
-      color: #444;
+      margin-bottom: 5vh;
     }
     .page-sig {
-      margin-top: 5vh;
       font-family: 'Dancing Script', cursive;
-      font-size: 6vw;
-      color: #e91e63;
+      font-size: 7vw;
+      color: #ff4081;
     }
-    .open .book { transform: rotateY(-25deg); }
+    .open .book {
+      transform: rotateY(-35deg) scale(1.05);
+    }
     .hint {
       position: fixed;
-      bottom: 4vh;
+      bottom: 6vh;
       left: 50%;
       transform: translateX(-50%);
-      font-size: 2.5vw;
-      color: rgba(255,255,255,0.85);
-      background: rgba(0,0,0,0.3);
-      padding: 1vh 4vw;
-      border-radius: 50px;
+      font-size: 3.2vw;
+      color: white;
+      background: rgba(255,64,129,0.5);
+      padding: 1.5vh 6vw;
+      border-radius: 60px;
       z-index: 100;
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(12px);
       pointer-events: none;
+      text-shadow: 0 1px 4px black;
     }
     @media (min-width: 768px) {
-      .page-title { font-size: 5rem; }
-      .page-text  { font-size: 1.8rem; }
-      .page-sig   { font-size: 3.5rem; }
-      .hint       { font-size: 1.4rem; }
+      .page-title { font-size: 7rem; }
+      .page-text { font-size: 2.8rem; }
+      .page-sig { font-size: 5rem; }
+      .hint { font-size: 1.8rem; padding: 1vh 4vw; }
     }
   </style>
 </head>
 <body>
 
-  <div class="scene" id="scene">
+  <div class="book-wrapper">
     <div class="book" id="book">
-      <div class="cover cover-front">Hind & Badou 💕</div>
-      <div class="cover cover-back">À Nous Pour Toujours</div>
-
-      <!-- 10 pages intérieures -->
-      <div class="page" data-page="1" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://i.ibb.co/TA_PHOTO_1.jpg');">
-        <div class="page-title">Premier Regard</div>
-        <p class="page-text">Tes yeux m’ont attrapé et depuis je n’ai plus jamais voulu regarder ailleurs.</p>
-        <div class="page-sig">Ton Badou 🩷</div>
+      <!-- Couverture avant -->
+      <div class="page cover-front">
+        <div class="overlay"></div>
+        <div class="content">
+          <h1>Hind & Badou</h1>
+          <div class="page-sig">Touchez pour ouvrir notre monde 💕</div>
+        </div>
       </div>
 
-      <div class="page" data-page="2" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://i.ibb.co/TA_PHOTO_2.jpg');">
-        <div class="page-title">Ton Sourire</div>
-        <p class="page-text">Quand tu souris c’est comme si le soleil décidait de rester toute la nuit.</p>
-        <div class="page-sig">Mon soleil 💙</div>
+      <!-- Les 10 pages intérieures -->
+      <div class="page" style="background-image: url('https://i.ibb.co/TA_PHOTO_1.jpg'); z-index: 29;">
+        <div class="overlay"></div>
+        <div class="content">
+          <div class="page-title">Le Premier Regard</div>
+          <div class="page-text">Tes yeux ont tout volé en une seconde. Depuis, je ne vois plus que toi.</div>
+          <div class="page-sig">Ton Badou 🩷</div>
+        </div>
       </div>
 
-      <div class="page" data-page="3" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://i.ibb.co/TA_PHOTO_3.jpg');">
-        <div class="page-title">Premier Câlin</div>
-        <p class="page-text">Ton corps contre le mien, la pluie qui tombe… le monde pouvait s’arrêter là.</p>
-        <div class="page-sig">Toujours</div>
+      <div class="page" style="background-image: url('https://i.ibb.co/TA_PHOTO_2.jpg'); z-index: 28;">
+        <div class="overlay"></div>
+        <div class="content">
+          <div class="page-title">Ton Sourire</div>
+          <div class="page-text">Il allume tout en moi. Un sourire de toi et je bande de bonheur pur.</div>
+          <div class="page-sig">Toujours toi 💙</div>
+        </div>
       </div>
 
-      <div class="page" data-page="4" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://i.ibb.co/TA_PHOTO_4.jpg');">
-        <div class="page-title">Je t’aime</div>
-        <p class="page-text">Tu l’as dit une fois, et depuis je l’entends dans chaque battement de mon cœur.</p>
-        <div class="page-sig">Infiniment</div>
+      <!-- Remplis les 8 autres pages avec tes photos et textes perso (z-index décroissant 27 → 20) -->
+      <!-- Exemple rapide pour page 3 à 10 -->
+      <div class="page" style="background-image: url('https://i.ibb.co/TA_PHOTO_3.jpg'); z-index: 27;">...</div>
+      <div class="page" style="background-image: url('https://i.ibb.co/TA_PHOTO_4.jpg'); z-index: 26;">...</div>
+      <div class="page" style="background-image: url('https://i.ibb.co/TA_PHOTO_5.jpg'); z-index: 25;">...</div>
+      <div class="page" style="background-image: url('https://i.ibb.co/TA_PHOTO_6.jpg'); z-index: 24;">...</div>
+      <div class="page" style="background-image: url('https://i.ibb.co/TA_PHOTO_7.jpg'); z-index: 23;">...</div>
+      <div class="page" style="background-image: url('https://i.ibb.co/TA_PHOTO_8.jpg'); z-index: 22;">...</div>
+      <div class="page" style="background-image: url('https://i.ibb.co/TA_PHOTO_9.jpg'); z-index: 21;">...</div>
+      <div class="page" style="background-image: url('https://i.ibb.co/TA_PHOTO_10.jpg'); z-index: 20;">
+        <div class="overlay"></div>
+        <div class="content">
+          <h1>À Nous</h1>
+          <div class="page-text">Hind, t’es ma bite, mon cœur, mon âme. Je t’aime jusqu’à la moelle.</div>
+          <div class="page-sig">Ton Badou 💍🩷</div>
+        </div>
       </div>
+    </div>
+  </div>
 
-      <div class="page" data-page="5" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://i.ibb.co/TA_PHOTO_5.jpg');">
-        <div class="page-title">Nos Nuits</div>
-        <p class="page-text">Parler jusqu’à ce que le soleil se lève… tes mots sont ma drogue la plus douce.</p>
-        <div class="page-sig">Mon refuge</div>
-      </div>
+  <div class="hint" id="hint">Clique ou swipe pour tourner la page →</div>
 
-      <div class="page" data-page="6" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://i.ibb.co/TA_PHOTO_6.jpg');">
-        <div class="page-title">Tes Reg
+  <script>
+    const book = document.getElementById('book');
+    const hint = document.getElementById('hint');
+    let isOpen = false;
+    let touchStartX = 0;
+
+    const openBook = () => {
+      if (!isOpen) {
+        book.style.transform = 'rotateY(-35deg) scale(1.05)';
+        isOpen = true;
+        hint.textContent = 'Clique ou swipe droite →';
+      }
+    };
+
+    book.addEventListener('click', openBook);
+
+    // Touch pour mobile (swipe droite = next page)
+    book.addEventListener('touchstart', e => {
+      touchStartX = e.touches[0].clientX;
+    });
+
+    book.addEventListener('touchend', e => {
+      const touchEndX = e.changedTouches[0].clientX;
+      if (touchStartX - touchEndX > 60) { // Swipe gauche → droite = next
+        openBook();
+      }
+    });
+
+    // Pour tourner les pages une fois ouvert (clic répété = flip visuel)
+    book.addEventListener('click', () => {
+      if (isOpen) {
+        const currentZ = parseInt(book.style.zIndex || 0);
+        if (currentZ > -10) book.style.zIndex = currentZ - 1;
+      }
+    });
+  </script>
+</body>
+</html>
