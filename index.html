@@ -116,7 +116,7 @@
       <div class="overlay"></div>
       <div class="content">
         <h1>Hind & Badou</h1>
-        <div class="sig">Notre histoire commence ici 💕</div>
+        <div class="sig">Notre putain d'histoire 💕</div>
       </div>
     </div>
 
@@ -217,28 +217,28 @@
         <h1>À Nous Deux</h1>
         <p>Hind, t’es ma chatte préférée, mon amour, ma vie. Je t’aime jusqu’à la dernière goutte de sperme.</p>
         <div class="sig">Ton Badou 💍🩷</div>
-        <button class="secret-btn" onclick="window.open('TON_LIEN_ICI', '_blank')">Clique ici ma chérie 💦</button>
+        <button class="secret-btn" onclick="window.open('TON_LIEN_SECRET_ICI', '_blank')">Clique ici ma chérie 💦</button>
       </div>
     </div>
   </div>
 
-  <!-- SON ROMANTIQUE / HOT (change src par ton fichier .mp3) -->
-  <audio id="loveSound" loop>
-    <source src="TON_LIEN_MP3_ICI.mp3" type="audio/mpeg">
+  <!-- SON INTÉGRÉ (ton lien LimeWire) -->
+  <audio id="sexySound" loop>
+    <source src="https://limewire.com/d/Dtsjj#iVPPWGLZCn" type="audio/mpeg">
     Ton navigateur ne supporte pas l'audio.
   </audio>
 
   <script>
     const book = document.getElementById('book');
-    const audio = document.getElementById('loveSound');
-    audio.volume = 0.4; // doux au début
+    const audio = document.getElementById('sexySound');
+    audio.volume = 0.35; // doux pour commencer
+
+    // Auto-play après premier touch (iOS friendly)
+    document.addEventListener('touchstart', () => {
+      audio.play().catch(() => console.log("Touch encore pour lancer le son"));
+    }, { once: true });
 
     let touchStartX = 0;
-
-    // Auto-play après première interaction (obligatoire iOS)
-    document.addEventListener('touchstart', () => {
-      audio.play().catch(() => {});
-    }, { once: true });
 
     book.addEventListener('touchstart', e => {
       touchStartX = e.touches[0].clientX;
