@@ -1,10 +1,11 @@
+```html
 <!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Hind & Badou • Notre Histoire Éternelle 💙🩷</title>
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300&display=swap" rel="stylesheet">
+  <title>Hind & Badou • Notre Amour 💙🩷</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
@@ -15,132 +16,160 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      perspective: 1500px;
+      perspective: 1800px;
     }
     .scene {
-      width: 600px;
-      height: 400px;
+      width: 640px;
+      height: 480px;
       position: relative;
       transform-style: preserve-3d;
-      transition: transform 2s ease;
+      transition: transform 2.5s ease-in-out;
     }
     .book {
       width: 100%;
       height: 100%;
       position: absolute;
       transform-style: preserve-3d;
-      transition: transform 2s ease;
+      transition: transform 2.5s ease-in-out;
+      cursor: pointer;
+    }
+    .cover {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #ff80ab 0%, #f06292 100%);
+      border-radius: 12px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Dancing Script', cursive;
+      font-size: 6rem;
+      color: white;
+      text-shadow: 0 4px 15px rgba(0,0,0,0.5);
+      backface-visibility: hidden;
+    }
+    .cover-front { transform: rotateY(0deg); z-index: 20; }
+    .cover-back { 
+      transform: rotateY(180deg); 
+      background: linear-gradient(135deg, #e1f5fe 0%, #b3e5fc 100%);
+      color: #d81b60;
+    }
+    .pages {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
     }
     .page {
       position: absolute;
       width: 100%;
       height: 100%;
-      background: #fff;
-      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+      background: white;
+      border-radius: 12px;
+      box-shadow: inset 0 0 30px rgba(0,0,0,0.1);
       backface-visibility: hidden;
-      display: flex;
+      display: none;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      font-family: 'Dancing Script', cursive;
-      font-size: 2.5rem;
-      color: #d81b60;
-      flex-direction: column;
       padding: 40px;
       box-sizing: border-box;
-    }
-    .cover-front, .cover-back {
-      background: linear-gradient(135deg, #ff80ab, #e91e63);
-      color: white;
-      font-size: 5rem;
       text-align: center;
     }
-    .cover-front { transform: rotateY(0deg); z-index: 10; }
-    .cover-back { transform: rotateY(180deg); }
-    .open .book { transform: rotateY(-180deg); }
-    .page:nth-child(2) { transform: rotateY(0deg); z-index: 9; }
-    .page:nth-child(3) { transform: rotateY(0deg); z-index: 8; }
-    .page:nth-child(4) { transform: rotateY(0deg); z-index: 7; }
-    .page:nth-child(5) { transform: rotateY(0deg); z-index: 6; }
-    .page:nth-child(6) { transform: rotateY(0deg); z-index: 5; }
-    .page:nth-child(7) { transform: rotateY(0deg); z-index: 4; }
+    .page.active { display: flex; }
     .page img {
-      max-width: 80%;
-      max-height: 60%;
-      border-radius: 15px;
-      margin-bottom: 20px;
+      max-width: 75%;
+      max-height: 55%;
+      border-radius: 18px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      margin-bottom: 25px;
     }
-    .text {
-      font-size: 1.4rem;
+    .page-text {
+      font-size: 1.6rem;
+      line-height: 1.6;
       color: #424242;
-      text-align: center;
-      line-height: 1.5;
+      max-width: 90%;
     }
-    .signature {
-      margin-top: 20px;
-      font-size: 2rem;
+    .page-sig {
+      margin-top: 30px;
+      font-family: 'Dancing Script', cursive;
+      font-size: 2.8rem;
       color: #e91e63;
     }
-    .countdown {
+    .open .book { transform: rotateY(-180deg); }
+    .open .scene { transform: rotateY(10deg); }
+    .nav {
       position: absolute;
-      bottom: 30px;
-      font-size: 2rem;
-      color: #c2185b;
-      text-align: center;
-      width: 100%;
-    }
-    .countdown span {
-      background: rgba(255,255,255,0.7);
-      padding: 10px 20px;
-      border-radius: 15px;
-      margin: 0 10px;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 1.3rem;
+      color: #777;
+      opacity: 0.8;
     }
   </style>
 </head>
 <body>
 
-  <div class="scene">
+  <div class="scene" id="scene">
     <div class="book" id="book">
-      <div class="page cover-front">Hind & Badou 💙🩷</div>
-      <div class="page">
-        <img src="https://i.ibb.co/TA_PHOTO_1.jpg" alt="Nous">
-        <div class="text">Depuis le premier regard, tu es mon univers.</div>
-        <div class="signature">Ton Badou</div>
+      <div class="cover cover-front">Hind & Badou 💕</div>
+      <div class="cover cover-back">Notre Histoire</div>
+      
+      <div class="pages" id="pages">
+        <!-- Page 1 - Accueil après ouverture -->
+        <div class="page active" data-page="1">
+          <img src="https://i.ibb.co/TA_PHOTO_1.jpg" alt="Nous deux">
+          <div class="page-text">Le jour où nos regards se sont croisés, quelque chose d'infiniment doux a commencé.</div>
+          <div class="page-sig">Ton Badou 🩷</div>
+        </div>
+
+        <!-- Page 2 -->
+        <div class="page" data-page="2">
+          <img src="https://i.ibb.co/TA_PHOTO_2.jpg" alt="Souvenir">
+          <div class="page-text">Tes rires résonnent encore dans ma tête comme la plus belle mélodie.</div>
+          <div class="page-sig">Toujours toi 💙</div>
+        </div>
+
+        <!-- Ajoute tes autres pages ici (data-page="3" etc) -->
       </div>
-      <div class="page">
-        <img src="https://i.ibb.co/TA_PHOTO_2.jpg" alt="Souvenir">
-        <div class="text">Ton sourire a tout changé.</div>
-        <div class="signature">Pour toujours 🩷</div>
-      </div>
-      <!-- Ajoute jusqu'à 5 pages ici -->
-      <div class="page cover-back">Notre Histoire Continue 💍</div>
     </div>
   </div>
 
-  <div class="countdown" id="countdown">
-    <span id="days">0</span>j <span id="hours">00</span>h <span id="minutes">00</span>m <span id="seconds">00</span>s
-    <br>jusqu'à Notre Mariage
-  </div>
+  <div class="nav" id="nav">Clique pour ouvrir • Swipe ou flèches pour tourner →</div>
 
   <script>
     const book = document.getElementById('book');
+    const scene = document.getElementById('scene');
+    const pages = document.querySelectorAll('.page');
+    let currentPage = 1;
+    const totalPages = pages.length;
+
     book.addEventListener('click', () => {
-      book.parentElement.classList.toggle('open');
+      if (!scene.classList.contains('open')) {
+        scene.classList.add('open');
+        // Première page déjà active
+      } else {
+        // Tourner page suivante
+        pages[currentPage - 1].classList.remove('active');
+        currentPage = (currentPage % totalPages) + 1;
+        pages[currentPage - 1].classList.add('active');
+      }
     });
 
-    function startCountdown() {
-      const wedding = new Date('2028-10-15T00:00:00').getTime(); // CHANGE LA DATE
-      const update = () => {
-        const diff = wedding - Date.now();
-        if (diff < 0) return document.getElementById('countdown').innerHTML = 'Pour toujours 💍';
-        document.getElementById('days').textContent = Math.floor(diff / 86400000);
-        document.getElementById('hours').textContent = Math.floor((diff % 86400000) / 3600000).toString().padStart(2, '0');
-        document.getElementById('minutes').textContent = Math.floor((diff % 3600000) / 60000).toString().padStart(2, '0');
-        document.getElementById('seconds').textContent = Math.floor((diff % 60000) / 1000).toString().padStart(2, '0');
-      };
-      update();
-      setInterval(update, 1000);
-    }
-    startCountdown();
+    // Support flèches clavier pour tourner les pages une fois ouvert
+    document.addEventListener('keydown', (e) => {
+      if (scene.classList.contains('open')) {
+        if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+          pages[currentPage - 1].classList.remove('active');
+          currentPage = e.key === 'ArrowRight' 
+            ? (currentPage % totalPages) + 1 
+            : currentPage === 1 ? totalPages : currentPage - 1;
+          pages[currentPage - 1].classList.add('active');
+        }
+      }
+    });
   </script>
 </body>
 </html>
